@@ -16,7 +16,7 @@ const ChatWindow = ({ messages, isAsking, sessionId, onAsk }) => {
   const hasMessages = messages.length > 0;
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-[#E5E7EB] flex flex-col overflow-hidden" style={{ minHeight: '520px' }}>
+    <div className="bg-white rounded-2xl shadow-sm border border-[#E5E7EB] flex flex-col overflow-hidden w-full" style={{ minHeight: '520px', maxHeight: '680px' }}>
       {/* Header */}
       <div className="flex items-center gap-2 px-5 py-4 border-b border-[#E5E7EB] bg-[#F8FAFC]">
         <div className="w-7 h-7 rounded-lg bg-[#3795BD]/10 flex items-center justify-center">
@@ -29,7 +29,7 @@ const ChatWindow = ({ messages, isAsking, sessionId, onAsk }) => {
       </div>
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {!sessionId ? (
           <EmptyState />
         ) : !hasMessages && !isAsking ? (

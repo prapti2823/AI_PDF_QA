@@ -25,13 +25,17 @@ const QuestionInput = ({ onAsk, isLoading, disabled }) => {
       >
         <textarea
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            setValue(e.target.value);
+            e.target.style.height = 'auto';
+            e.target.style.height = Math.min(e.target.scrollHeight, 128) + 'px';
+          }}
           onKeyDown={handleKeyDown}
           disabled={disabled || isLoading}
           placeholder={disabled ? 'Upload a PDF to start asking questions…' : 'Ask a question about your PDF…'}
           rows={1}
-          className="flex-1 bg-transparent text-sm text-slate-700 placeholder-slate-400 resize-none outline-none leading-relaxed max-h-32 disabled:cursor-not-allowed"
-          style={{ minHeight: '24px' }}
+          className="flex-1 bg-transparent text-sm text-slate-700 placeholder-slate-400 resize-none outline-none leading-relaxed disabled:cursor-not-allowed"
+          style={{ minHeight: '24px', maxHeight: '128px' }}
         />
         <button
           onClick={handleSubmit}

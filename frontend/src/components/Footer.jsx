@@ -2,7 +2,7 @@ import { Heart } from 'lucide-react';
 
 const Footer = () => (
   <footer className="border-t border-[#E5E7EB] bg-white mt-auto">
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
+    <div className="w-full px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
       <p className="text-xs text-slate-400 flex items-center gap-1.5">
         Built using
         <span className="font-medium text-slate-500">React</span>,

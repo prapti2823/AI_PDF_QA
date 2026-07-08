@@ -2,7 +2,7 @@ import { FileText, Sparkles } from 'lucide-react';
 
 const Navbar = () => (
   <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#E5E7EB] shadow-sm">
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div className="w-full px-4 sm:px-6 h-16 flex items-center justify-between">
       {/* Logo + Title */}
       <div className="flex items-center gap-3">
         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3795BD] to-[#2563eb] flex items-center justify-center shadow-md">

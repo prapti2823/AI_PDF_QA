@@ -20,17 +20,16 @@ const Home = () => {
 
   return (
     <main className="flex-1 bg-[#F8FAFC]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        {/* Error banner */}
+      <div className="w-full px-4 sm:px-6 py-6">
         {error && (
-          <div className="mb-6">
+          <div className="mb-4">
             <ErrorAlert message={error} onDismiss={clearError} />
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 items-start">
-          {/* Left column: Upload */}
-          <div className="space-y-4">
+        <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
+          {/* Left column: Upload + Tips */}
+          <div className="w-full lg:w-[360px] flex-shrink-0 space-y-4">
             <UploadCard
               uploadedFile={uploadedFile}
               uploadProgress={uploadProgress}
@@ -38,8 +37,6 @@ const Home = () => {
               onUpload={handleUpload}
               onRemove={handleRemoveFile}
             />
-
-            {/* Tips card */}
             <div className="bg-gradient-to-br from-[#EEF7FF] to-white rounded-2xl border border-[#3795BD]/15 p-5">
               <p className="text-xs font-semibold text-[#3795BD] uppercase tracking-wide mb-3">Tips</p>
               <ul className="space-y-2">
@@ -57,13 +54,15 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Right column: Chat */}
-          <ChatWindow
-            messages={messages}
-            isAsking={isAsking}
-            sessionId={sessionId}
-            onAsk={handleAsk}
-          />
+          {/* Right column: Chat — takes remaining width */}
+          <div className="w-full flex-1 min-w-0">
+            <ChatWindow
+              messages={messages}
+              isAsking={isAsking}
+              sessionId={sessionId}
+              onAsk={handleAsk}
+            />
+          </div>
         </div>
       </div>
     </main>

@@ -8,7 +8,7 @@ const features = [
 
 const Hero = () => (
   <section className="bg-gradient-to-br from-[#EEF7FF] via-white to-[#F8FAFC] border-b border-[#E5E7EB]">
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 flex flex-col lg:flex-row items-center gap-10">
+    <div className="w-full px-4 sm:px-6 py-8 sm:py-12 flex flex-col lg:flex-row items-center gap-8">
       {/* Text */}
       <div className="flex-1 text-center lg:text-left">
         <div className="inline-flex items-center gap-2 bg-[#3795BD]/10 text-[#3795BD] text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
