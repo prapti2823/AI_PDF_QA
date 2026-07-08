@@ -22,19 +22,22 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 
+_HF_MODEL = "google/flan-t5-base"
+
 # ── Module-level cache ─────────────────────────────────────────────────────
 _qa_pipeline = None  # Hugging Face pipeline (loaded once)
 
 
 def _get_hf_pipeline():
-    """Load and cache the Hugging Face QA pipeline."""
+    """Load and cache the Hugging Face text2text pipeline."""
     global _qa_pipeline
     if _qa_pipeline is None:
-        logger.info("Loading Hugging Face QA model: %s", settings.qa_model)
+        logger.info("Loading Hugging Face QA model: %s", _HF_MODEL)
         _qa_pipeline = pipeline(
-            "question-answering",
-            model=settings.qa_model,
-            tokenizer=settings.qa_model,
+            "text2text-generation",
+            model=_HF_MODEL,
+            tokenizer=_HF_MODEL,
+            max_new_tokens=256,
         )
         logger.info("Hugging Face QA model loaded successfully.")
     return _qa_pipeline
@@ -78,22 +81,24 @@ def _answer_with_openai(question: str, context: str) -> str:
 
 def _answer_with_huggingface(question: str, context: str) -> str:
     """
-    Use a local Hugging Face extractive QA model to answer the question.
+    Use a local Hugging Face generative model to answer the question.
     No API key required — runs entirely on the local machine.
     """
     logger.info("Using Hugging Face pipeline to answer the question.")
     qa = _get_hf_pipeline()
 
-    result = qa(question=question, context=context)
+    prompt = (
+        f"Answer the question based on the context below.\n\n"
+        f"Context: {context}\n\n"
+        f"Question: {question}\n\n"
+        f"Answer:"
+    )
 
-    # result = {"answer": "...", "score": 0.95, "start": 10, "end": 50}
-    answer = result.get("answer", "").strip()
-    score = result.get("score", 0)
+    result = qa(prompt)
+    answer = result[0].get("generated_text", "").strip()
 
-    logger.info("HF QA answer extracted with confidence score: %.4f", score)
-
-    if not answer or score < 0.01:
-        return "I could not find a confident answer in the provided document."
+    if not answer:
+        return "I could not find an answer in the provided document."
 
     return answer
 

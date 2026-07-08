@@ -17,7 +17,7 @@ import logging
 from pathlib import Path
 
 import PyPDF2
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.config import settings
 from app.utils.helpers import clean_text

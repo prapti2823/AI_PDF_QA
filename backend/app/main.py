@@ -23,6 +23,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import router
 from app.config import settings
 from app.services.embedding_service import get_embedding_model
+from app.services.qa_service import _get_hf_pipeline
 
 
 # ── Logging setup ──────────────────────────────────────────────────────────
@@ -49,7 +50,10 @@ async def lifespan(app: FastAPI):
     """
     logger.info("Starting AI PDF QA API…")
     logger.info("Pre-loading embedding model at startup…")
-    get_embedding_model()   # loads and caches the model
+    get_embedding_model()
+    if not settings.openai_api_key:
+        logger.info("Pre-loading Hugging Face QA model at startup…")
+        _get_hf_pipeline()
     logger.info("Startup complete. API is ready.")
     yield
     logger.info("Shutting down AI PDF QA API.")
